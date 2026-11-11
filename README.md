@@ -15,6 +15,15 @@
 | **MAID** | Десктоп (Linux/macOS/Windows) | Python + pygame-ce | [`MAID/`](MAID/) |
 | **Android** | Мобильная (Android 7.0+) | JavaScript + Canvas + Capacitor | [`ANDROID/`](ANDROID/) |
 
+### Скачать Android APK
+
+**Прямая ссылка на скачивание:**
+[dotgame-android-v1.2.apk](https://github.com/1AntonioOrlo1/euler-dot-game/releases/download/v1.2/dotgame-android-v1.2.apk)
+· страница релиза: [v1.2](https://github.com/1AntonioOrlo1/euler-dot-game/releases/tag/v1.2)
+
+Скопируйте файл на телефон и установите (разрешите установку из неизвестных
+источников).
+
 Обе версии используют **одно и то же ядро** (перенос 1:1, покрыт
 дифференциальными тестами). Правила и механика захвата совпадают.
 
@@ -44,8 +53,9 @@ python3 -m venv --copies .venv      # один раз (на NTFS обязате�
 
 ### Android (мобильная)
 
-Готовый APK: [`ANDROID/dotgame-android-v1.2.apk`](ANDROID/dotgame-android-v1.2.apk)
-— скопируйте на телефон и установите.
+**Скачать APK:** [прямая ссылка v1.2](https://github.com/1AntonioOrlo1/euler-dot-game/releases/download/v1.2/dotgame-android-v1.2.apk)
+(или [`ANDROID/dotgame-android-v1.2.apk`](ANDROID/dotgame-android-v1.2.apk)
+из репозитория). Скопируйте файл на телефон и установите.
 
 Управление (сенсорное, два тапа):
 * **Тап** — призрак (видно, куда встанет точка); **второй тап рядом** —

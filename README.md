@@ -18,14 +18,16 @@
 ### Скачать Android APK
 
 **Прямая ссылка на скачивание:**
-[dotgame-android-v1.2.apk](https://github.com/1AntonioOrlo1/euler-dot-game/releases/download/v1.2/dotgame-android-v1.2.apk)
-· страница релиза: [v1.2](https://github.com/1AntonioOrlo1/euler-dot-game/releases/tag/v1.2)
+[dotgame-android-v1.3.apk](https://github.com/1AntonioOrlo1/euler-dot-game/releases/download/v1.3/dotgame-android-v1.3.apk)
+· страница релиза: [v1.3](https://github.com/1AntonioOrlo1/euler-dot-game/releases/tag/v1.3)
 
 Скопируйте файл на телефон и установите (разрешите установку из неизвестных
 источников).
 
 Обе версии используют **одно и то же ядро** (перенос 1:1, покрыт
-дифференциальными тестами). Правила и механика захвата совпадают.
+дифференциальными тестами). Правила и механика захвата совпадают, за
+исключением Android-правила границы карты: точка, поставленная на границу,
+не соединяется с другими точками на границе (на десктопе — соединяется).
 
 ## Правила (кратко)
 
@@ -53,8 +55,8 @@ python3 -m venv --copies .venv      # один раз (на NTFS обязате�
 
 ### Android (мобильная)
 
-**Скачать APK:** [прямая ссылка v1.2](https://github.com/1AntonioOrlo1/euler-dot-game/releases/download/v1.2/dotgame-android-v1.2.apk)
-(или [`ANDROID/dotgame-android-v1.2.apk`](ANDROID/dotgame-android-v1.2.apk)
+**Скачать APK:** [прямая ссылка v1.3](https://github.com/1AntonioOrlo1/euler-dot-game/releases/download/v1.3/dotgame-android-v1.3.apk)
+(или [`ANDROID/dotgame-android-v1.3.apk`](ANDROID/dotgame-android-v1.3.apk)
 из репозитория). Скопируйте файл на телефон и установите.
 
 Управление (сенсорное, два тапа):
@@ -75,7 +77,8 @@ Node 18+, JDK 21, Android SDK).
 * `MAID/stress_test.py` — усиленное: дифференциальный предикат «точка в
   контуре» на 6000 позициях / 50k запросов + инварианты на 14 400 ходах.
 * `MAID/smoke_maid.py` — программный smoke живого UI-цикла (51 проверка).
-* `ANDROID/test/` — дифференциальные тесты порта Python→JS (ядро идентично).
+* `ANDROID/test/` — дифференциальные тесты порта Python→JS (ядро идентично),
+  `boundary_test.js` — правило границы карты (28 проверок).
 
 Подробности — в `MAID/README.md` и `ANDROID/README.md`.
 
@@ -90,6 +93,6 @@ ANDROID/    мобильная версия (JS + Canvas + Capacitor)
   www/      веб-приложение (core.js — ядро, ui.js — рендер + тач)
   android/  нативный Android-проект
   test/     дифференциальные тесты порта
-  dotgame-android-v1.2.apk
+  dotgame-android-v1.3.apk
   README.md
 ```

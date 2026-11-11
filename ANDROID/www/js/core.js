@@ -211,9 +211,11 @@ class ColorStructure {
       const R2 = (radius + ON_EPS) ** 2;
       for (let i = 0; i < this.n; i++) {
         const xi = this.pts[i][0], yi = this.pts[i][1];
+        const onBi = isOnBoundary(xi, yi);
         for (let j = i + 1; j < this.n; j++) {
           const xj = this.pts[j][0], yj = this.pts[j][1];
-          if ((xi - xj) ** 2 + (yi - yj) ** 2 <= R2) this.edges.push([i, j]);
+          if ((xi - xj) ** 2 + (yi - yj) ** 2 <= R2 &&
+              !(onBi && isOnBoundary(xj, yj))) this.edges.push([i, j]);
         }
       }
     }
@@ -345,6 +347,18 @@ class ColorStructure {
   }
 }
 
+// Точка на границе карты (окружность поля) — допуск покрывает float-ошибку снапа
+const BOUNDARY_EPS = 1e-6;
+function isOnBoundary(x, y) { return Math.abs(Math.hypot(x, y) - FIELD_RADIUS) <= BOUNDARY_EPS; }
+// Соединяются ли две точки: расстояние ≤ R, но две точки НА ГРАНИЦЕ КАРТЫ
+// НЕ соединяются (правило Android-версии)
+function pointsConnect(a, b) {
+  const dx = a.x - b.x, dy = a.y - b.y;
+  if (dx * dx + dy * dy > (CONNECTION_RADIUS + ON_EPS) ** 2) return false;
+  if (isOnBoundary(a.x, a.y) && isOnBoundary(b.x, b.y)) return false;
+  return true;
+}
+
 // ---------- логика игры ----------
 class Point {
   constructor(x, y, color, active = true, pid = 0) {
@@ -465,10 +479,12 @@ class Game {
     const adj = Array.from({ length: own.length }, () => []);
     for (let i = 0; i < own.length; i++) {
       const a = own[i];
+      const onBi = isOnBoundary(a.x, a.y);
       for (let j = i + 1; j < own.length; j++) {
         const b = own[j];
         const dx = a.x - b.x, dy = a.y - b.y;
-        if (dx * dx + dy * dy <= R2) { adj[i].push(j); adj[j].push(i); }
+        if (dx * dx + dy * dy <= R2 &&
+            !(onBi && isOnBoundary(b.x, b.y))) { adj[i].push(j); adj[j].push(i); }
       }
     }
     const neighbors = adj[ni];
@@ -607,6 +623,7 @@ if (typeof module !== "undefined" && module.exports) {
     FIELD_RADIUS, CONNECTION_RADIUS, EPSILON, RED_C, BLUE_C,
     otherColor, ColorStructure, Point, MoveResult, Game,
     isInsideField, distanceP, intersectCircleCircle, snapCandidates,
+    isOnBoundary, pointsConnect,
     convexHull, pointSegDist2,
   };
 }
@@ -615,5 +632,6 @@ if (typeof window !== "undefined") {
     FIELD_RADIUS, CONNECTION_RADIUS, EPSILON, RED_C, BLUE_C,
     otherColor, ColorStructure, Point, MoveResult, Game,
     isInsideField, distanceP, intersectCircleCircle, snapCandidates,
+    isOnBoundary, pointsConnect,
   };
 }

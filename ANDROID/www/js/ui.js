@@ -155,10 +155,9 @@
   function edgePairs(color) {
     const act = game.activeOf(color);
     const pairs = [];
-    const R2 = (C.CONNECTION_RADIUS + C.EPSILON) ** 2;
     for (let i = 0; i < act.length; i++)
       for (let j = i + 1; j < act.length; j++)
-        if ((act[i].x - act[j].x) ** 2 + (act[i].y - act[j].y) ** 2 <= R2) pairs.push([act[i], act[j]]);
+        if (C.pointsConnect(act[i], act[j])) pairs.push([act[i], act[j]]);
     return pairs;
   }
   // Все кривые с флагом own (своя ли для текущего игрока)
@@ -303,12 +302,11 @@
   // ---- рендеринг ----
   function drawEdges(color, edgeColor) {
     const act = game.activeOf(color);
-    const R2 = (C.CONNECTION_RADIUS + C.EPSILON) ** 2;
     ctx.strokeStyle = edgeColor; ctx.lineWidth = 1.5;
     for (let i = 0; i < act.length; i++)
       for (let j = i + 1; j < act.length; j++) {
         const a = act[i], b = act[j];
-        if ((a.x - b.x) ** 2 + (a.y - b.y) ** 2 <= R2) {
+        if (C.pointsConnect(a, b)) {
           const [x1, y1] = g2s(a.x, a.y), [x2, y2] = g2s(b.x, b.y);
           ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
         }
@@ -363,10 +361,10 @@
     ctx.beginPath(); ctx.arc(sx, sy, C.CONNECTION_RADIUS * scale, 0, Math.PI * 2); ctx.stroke();
     ctx.setLineDash([]);
     const cur = game.current;
-    const R2 = (C.CONNECTION_RADIUS + C.EPSILON) ** 2;
     ctx.strokeStyle = cur === C.RED_C ? COL.redEdge : COL.blueEdge; ctx.lineWidth = 2;
+    const gp = { x: ghost.x, y: ghost.y };
     for (const p of game.activeOf(cur))
-      if ((p.x - ghost.x) ** 2 + (p.y - ghost.y) ** 2 <= R2) {
+      if (C.pointsConnect(gp, p)) {
         const [px, py] = g2s(p.x, p.y);
         ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(px, py); ctx.stroke();
       }

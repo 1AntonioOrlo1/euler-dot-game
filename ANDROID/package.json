@@ -1,0 +1,15 @@
+{
+  "name": "dotgame",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Точки — dotgame для Android (Capacitor)",
+  "scripts": {
+    "build": "cap sync android",
+    "apk": "cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/cli": "^8.6.0",
+    "@capacitor/core": "^8.6.0"
+  }
+}

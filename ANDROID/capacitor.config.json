@@ -1,0 +1,11 @@
+{
+  "appId": "ru.maid.dotgame",
+  "appName": "Точки",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "http"
+  }
+}

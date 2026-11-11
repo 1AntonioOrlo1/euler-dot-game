@@ -1,0 +1,27 @@
+# ── Черновики-оригиналы мастера в корне (не часть рабочего проекта) ──
+/dotgame*.py
+
+# ── Python / pygame (MAID) ──
+MAID/.venv/
+MAID/__pycache__/
+MAID/shots/
+*.pyc
+
+# ── Node / Capacitor (ANDROID) ──
+ANDROID/node_modules/
+ANDROID/android/.gradle/
+ANDROID/android/build/
+ANDROID/android/app/build/
+ANDROID/android/capacitor-cordova-android-plugins/build/
+ANDROID/android/local.properties
+
+# ── APK: в репозитории только актуальный (v1.2), старые версии не коммитим ──
+ANDROID/dotgame-android-v1.0.apk
+ANDROID/dotgame-android-v1.1.apk
+
+# ── Сгенерированные тестовые данные (воспроизводятся gen_*.py / run_*.js) ──
+ANDROID/test/*.json
+
+# ── Прочее ──
+.DS_Store
+Thumbs.db

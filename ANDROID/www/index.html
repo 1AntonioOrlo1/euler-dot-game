@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Точки</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <div class="score">
+        <span id="score-red" class="score-num red">0</span>
+        <span class="score-sep">:</span>
+        <span id="score-blue" class="score-num blue">0</span>
+      </div>
+      <div id="turn" class="turn red"><span class="turn-dot"></span><span id="turn-text">Красные</span></div>
+      <div class="buttons">
+        <button id="btn-undo" class="icon-btn" title="Отменить (два тапа)">↩</button>
+        <button id="btn-reset" class="icon-btn" title="Новая игра">⟲</button>
+        <button id="btn-help" class="icon-btn" title="Правила">?</button>
+      </div>
+    </header>
+    <div id="stage">
+      <canvas id="game"></canvas>
+      <div id="toast" class="hidden"></div>
+    </div>
+  </div>
+
+  <!-- Оверлей: правила -->
+  <div id="overlay-help" class="overlay hidden">
+    <div class="overlay-card">
+      <h2>Правила</h2>
+      <ul>
+        <li>Ходят по очереди: красные, затем синие.</li>
+        <li><b>Два тапа</b> ставят точку: первый — призрак (видно, куда встанет), второй рядом — подтвердить.</li>
+        <li>Точки на расстоянии ≤ R соединяются линией.</li>
+        <li>Замкнутый контур <b>захватывает</b> чужие точки внутри: они гаснут и идут в ваш счёт.</li>
+        <li>Точка, поставленная внутрь чужого контура, <b>захватывается сразу</b> (самопожертвование).</li>
+        <li>Захваченная точка неактивна навсегда (без оживления).</li>
+        <li>Побеждает тот, у кого больше захваченных к концу.</li>
+      </ul>
+      <h3>Управление</h3>
+      <ul>
+        <li>Тап по пустому месту — призрак; второй тап рядом — подтвердить.</li>
+        <li>Призрак сам подсвечивается: <b>жёлтый</b> — на своей линии/круге или на границе карты (можно ставить в любом месте), <b>зелёный</b> — на пересечении своей линии/круга со своей, чужой линией или границей карты.</li>
+        <li>Чисто чужие пересечения (без своей линии) ставить нельзя.</li>
+        <li>Перетаскивание — панорама, щипок — зум к пальцам.</li>
+        <li>Два быстрых тапа — отменить ход.</li>
+        <li>⟲ — новая игра, ? — правила.</li>
+      </ul>
+      <button id="btn-help-close" class="primary">Понятно</button>
+    </div>
+  </div>
+
+  <!-- Оверлей: подтверждение сброса -->
+  <div id="overlay-reset" class="overlay hidden">
+    <div class="overlay-card small">
+      <h2>Новая игра?</h2>
+      <p>Текущая партия будет сброшена.</p>
+      <div class="row">
+        <button id="btn-reset-cancel" class="ghost-btn">Отмена</button>
+        <button id="btn-reset-confirm" class="primary">Сбросить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Оверлей: конец игры -->
+  <div id="overlay-over" class="overlay hidden">
+    <div class="overlay-card small">
+      <h2 id="over-title">Конец игры</h2>
+      <p id="over-text"></p>
+      <button id="btn-over-new" class="primary">Новая игра</button>
+    </div>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
